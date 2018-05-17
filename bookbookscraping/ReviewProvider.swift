@@ -7,3 +7,8 @@
 //
 
 import Foundation
+
+enum ReviewProvider: String {
+    case naverbooks
+    case kyobo
+}
