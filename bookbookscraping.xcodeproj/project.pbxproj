@@ -12,7 +12,7 @@
 		5A9661EC20ADA49400901026 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A9661EA20ADA49400901026 /* Main.storyboard */; };
 		5A9661EE20ADA49500901026 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A9661ED20ADA49500901026 /* Assets.xcassets */; };
 		5A9661F120ADA49500901026 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A9661EF20ADA49500901026 /* LaunchScreen.storyboard */; };
-		5A9661FC20ADA49600901026 /* BookbookscrapingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9661FB20ADA49600901026 /* BookbookscrapingTests.swift */; };
+		5A9661FC20ADA49600901026 /* NetworkLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9661FB20ADA49600901026 /* NetworkLayerTests.swift */; };
 		5A96620820ADAF5F00901026 /* RestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A96620720ADAF5F00901026 /* RestAPI.swift */; };
 		5A96620A20ADE79100901026 /* ReviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A96620920ADE79100901026 /* ReviewProvider.swift */; };
 		5A96620C20AE049800901026 /* NetworkAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A96620B20AE049800901026 /* NetworkAdapter.swift */; };
@@ -39,7 +39,7 @@
 		5A9661F020ADA49500901026 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A9661F220ADA49500901026 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A9661F720ADA49600901026 /* bookbookscrapingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bookbookscrapingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A9661FB20ADA49600901026 /* BookbookscrapingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookbookscrapingTests.swift; sourceTree = "<group>"; };
+		5A9661FB20ADA49600901026 /* NetworkLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayerTests.swift; sourceTree = "<group>"; };
 		5A9661FD20ADA49600901026 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A96620720ADAF5F00901026 /* RestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPI.swift; sourceTree = "<group>"; };
 		5A96620920ADE79100901026 /* ReviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewProvider.swift; sourceTree = "<group>"; };
@@ -139,7 +139,7 @@
 		5A9661FA20ADA49600901026 /* bookbookscrapingTests */ = {
 			isa = PBXGroup;
 			children = (
-				5A9661FB20ADA49600901026 /* BookbookscrapingTests.swift */,
+				5A9661FB20ADA49600901026 /* NetworkLayerTests.swift */,
 				5A9661FD20ADA49600901026 /* Info.plist */,
 			);
 			path = bookbookscrapingTests;
@@ -336,7 +336,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A9661FC20ADA49600901026 /* BookbookscrapingTests.swift in Sources */,
+				5A9661FC20ADA49600901026 /* NetworkLayerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

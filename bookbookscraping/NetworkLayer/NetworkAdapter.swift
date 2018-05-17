@@ -15,7 +15,6 @@ struct ServerError : Error {
 
 struct NetworkAdaptor {
     static let provider = MoyaProvider<RestAPI>()
-    
     static func request(target : RestAPI,
                         successHandler : @escaping (Response) -> Void,
                         errorHandler : @escaping (ServerError) -> Void,
