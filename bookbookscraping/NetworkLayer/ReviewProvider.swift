@@ -8,7 +8,10 @@
 
 import Foundation
 
-enum ReviewProvider: String {
+enum ReviewProvider : String {
     case naverbooks
     case kyobo
+    var name : String {
+        return self.rawValue
+    }
 }

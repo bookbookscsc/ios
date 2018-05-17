@@ -13,7 +13,7 @@
 		5A9661EE20ADA49500901026 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A9661ED20ADA49500901026 /* Assets.xcassets */; };
 		5A9661F120ADA49500901026 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A9661EF20ADA49500901026 /* LaunchScreen.storyboard */; };
 		5A9661FC20ADA49600901026 /* BookbookscrapingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9661FB20ADA49600901026 /* BookbookscrapingTests.swift */; };
-		5A96620820ADAF5F00901026 /* ServerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A96620720ADAF5F00901026 /* ServerAPI.swift */; };
+		5A96620820ADAF5F00901026 /* RestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A96620720ADAF5F00901026 /* RestAPI.swift */; };
 		5A96620A20ADE79100901026 /* ReviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A96620920ADE79100901026 /* ReviewProvider.swift */; };
 		5A96620C20AE049800901026 /* NetworkAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A96620B20AE049800901026 /* NetworkAdapter.swift */; };
 		98F5DAC6DF24ECEAE2750A39 /* Pods_bookbookscraping.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77B15FAFCA6621E1A6DAADDA /* Pods_bookbookscraping.framework */; };
@@ -41,7 +41,7 @@
 		5A9661F720ADA49600901026 /* bookbookscrapingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bookbookscrapingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A9661FB20ADA49600901026 /* BookbookscrapingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookbookscrapingTests.swift; sourceTree = "<group>"; };
 		5A9661FD20ADA49600901026 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5A96620720ADAF5F00901026 /* ServerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAPI.swift; sourceTree = "<group>"; };
+		5A96620720ADAF5F00901026 /* RestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPI.swift; sourceTree = "<group>"; };
 		5A96620920ADE79100901026 /* ReviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewProvider.swift; sourceTree = "<group>"; };
 		5A96620B20AE049800901026 /* NetworkAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAdapter.swift; sourceTree = "<group>"; };
 		77B15FAFCA6621E1A6DAADDA /* Pods_bookbookscraping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookbookscraping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +92,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5A8A1C2220AE166C008050D7 /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+				5A96620720ADAF5F00901026 /* RestAPI.swift */,
+				5A96620B20AE049800901026 /* NetworkAdapter.swift */,
+				5A96620920ADE79100901026 /* ReviewProvider.swift */,
+			);
+			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
 		5A9661DA20ADA49400901026 = {
 			isa = PBXGroup;
 			children = (
@@ -115,11 +125,9 @@
 		5A9661E520ADA49400901026 /* bookbookscraping */ = {
 			isa = PBXGroup;
 			children = (
+				5A8A1C2220AE166C008050D7 /* NetworkLayer */,
 				5A9661E620ADA49400901026 /* AppDelegate.swift */,
 				5A9661E820ADA49400901026 /* ViewController.swift */,
-				5A96620720ADAF5F00901026 /* ServerAPI.swift */,
-				5A96620B20AE049800901026 /* NetworkAdapter.swift */,
-				5A96620920ADE79100901026 /* ReviewProvider.swift */,
 				5A9661EA20ADA49400901026 /* Main.storyboard */,
 				5A9661ED20ADA49500901026 /* Assets.xcassets */,
 				5A9661EF20ADA49500901026 /* LaunchScreen.storyboard */,
@@ -318,7 +326,7 @@
 			files = (
 				5A96620A20ADE79100901026 /* ReviewProvider.swift in Sources */,
 				5A9661E920ADA49400901026 /* ViewController.swift in Sources */,
-				5A96620820ADAF5F00901026 /* ServerAPI.swift in Sources */,
+				5A96620820ADAF5F00901026 /* RestAPI.swift in Sources */,
 				5A9661E720ADA49400901026 /* AppDelegate.swift in Sources */,
 				5A96620C20AE049800901026 /* NetworkAdapter.swift in Sources */,
 			);

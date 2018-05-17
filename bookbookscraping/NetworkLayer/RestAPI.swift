@@ -32,15 +32,14 @@ extension RestAPI: TargetType {
         return Data()
     }
     var task: Task {
-        return .requestPlain
+        switch self {
+        case .reviews(let reviewProvider, let isbn):
+            return .requestParameters(parameters: ["provider": reviewProvider.name,
+                                                   "isbn": isbn],
+                                      encoding: JSONEncoding.default)
+        }
     }
     var headers: [String: String]? {
-        switch self {
-        case .reviews(let provider, let isbn):
-            return [
-                "provider": provider.rawValue,
-                "isbn": isbn
-            ]
-        }
+        return nil
     }
 }
