@@ -76,7 +76,7 @@ fastlane/test_output
 ## Various settings
 
 ## Other
-
+Constants.swift
 ### Xcode Patch ###
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
