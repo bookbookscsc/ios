@@ -11,7 +11,8 @@ import XCTest
 @testable import bookbookscraping
 
 class NetworkLayerTests: XCTestCase {
-    func test_ExpectStatusCodeIsBetween200And300() {
+    
+    func test_리뷰리스트API_상태코드_200이_와야함() {
         let expectedStatusCodeIsBetween200And300 = expectation(description: "상태코드 200 ~ 300 와야 함")
         NetworkAdaptor.request(target: .reviews(provider: .naverbooks, isbn: "123456789"),
                                successHandler: { (_) in
@@ -23,4 +24,10 @@ class NetworkLayerTests: XCTestCase {
         })
         wait(for: [expectedStatusCodeIsBetween200And300], timeout: 1)
     }
+    
+    func test_네이버책검색API_상태코드_200이_와야함() {
+        
+    }
+    
+    
 }
