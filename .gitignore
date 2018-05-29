@@ -7,7 +7,8 @@
 #           - Also handy if you have a large number of dependant pods
 #           - AS PER https://guides.cocoapods.org/using/using-cocoapods.html NEVER IGNORE THE LOCK FILE
 Pods/
-
+Podfile
+Podfile.lock
 ### Swift ###
 # Xcode
 #
@@ -76,8 +77,9 @@ fastlane/test_output
 ## Various settings
 
 ## Other
-
-### Xcode Patch ###
+Constants.swift
+### Xcode Patch ####
+bookbookscraping.xcodeproj/project.pbxproj
 *.xcodeproj/*
 !*.xcodeproj/project.pbxproj
 !*.xcodeproj/xcshareddata/

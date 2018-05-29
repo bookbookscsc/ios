@@ -7,15 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5A210B4E20BD9B4E00EE4F08 /* NaverBookAPISample.json in Resources */ = {isa = PBXBuildFile; fileRef = 5A210B4D20BD9B4E00EE4F08 /* NaverBookAPISample.json */; };
 		5A9661E720ADA49400901026 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9661E620ADA49400901026 /* AppDelegate.swift */; };
 		5A9661E920ADA49400901026 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9661E820ADA49400901026 /* ViewController.swift */; };
 		5A9661EC20ADA49400901026 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A9661EA20ADA49400901026 /* Main.storyboard */; };
 		5A9661EE20ADA49500901026 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A9661ED20ADA49500901026 /* Assets.xcassets */; };
 		5A9661F120ADA49500901026 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A9661EF20ADA49500901026 /* LaunchScreen.storyboard */; };
-		5A9661FC20ADA49600901026 /* BookbookscrapingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9661FB20ADA49600901026 /* BookbookscrapingTests.swift */; };
-		5A96620820ADAF5F00901026 /* ServerAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A96620720ADAF5F00901026 /* ServerAPI.swift */; };
-		5A96620A20ADE79100901026 /* ReviewProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A96620920ADE79100901026 /* ReviewProvider.swift */; };
+		5A9661FC20ADA49600901026 /* NetworkLayerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9661FB20ADA49600901026 /* NetworkLayerTests.swift */; };
+		5A96620820ADAF5F00901026 /* RestAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A96620720ADAF5F00901026 /* RestAPI.swift */; };
+		5A96620A20ADE79100901026 /* Bookstore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A96620920ADE79100901026 /* Bookstore.swift */; };
 		5A96620C20AE049800901026 /* NetworkAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A96620B20AE049800901026 /* NetworkAdapter.swift */; };
+		5A9D302E20BD84340099F39C /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D302D20BD84340099F39C /* Models.swift */; };
+		5A9D303720BD8D9E0099F39C /* ModelDataBidingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A9D303620BD8D9E0099F39C /* ModelDataBidingTests.swift */; };
+		5ACF8E6020BC15570009BC80 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACF8E5F20BC15570009BC80 /* Constants.swift */; };
+		5ACF8E6220BD65A80009BC80 /* Extensions+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ACF8E6120BD65A80009BC80 /* Extensions+UIColor.swift */; };
 		98F5DAC6DF24ECEAE2750A39 /* Pods_bookbookscraping.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 77B15FAFCA6621E1A6DAADDA /* Pods_bookbookscraping.framework */; };
 		C56BDCDFF31ABB196D39BC3B /* Pods_bookbookscrapingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 969FEEF842BA852879970258 /* Pods_bookbookscrapingTests.framework */; };
 /* End PBXBuildFile section */
@@ -31,6 +36,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5A210B4D20BD9B4E00EE4F08 /* NaverBookAPISample.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = NaverBookAPISample.json; sourceTree = "<group>"; };
 		5A9661E320ADA49400901026 /* bookbookscraping.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = bookbookscraping.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A9661E620ADA49400901026 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5A9661E820ADA49400901026 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -39,11 +45,15 @@
 		5A9661F020ADA49500901026 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A9661F220ADA49500901026 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A9661F720ADA49600901026 /* bookbookscrapingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = bookbookscrapingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A9661FB20ADA49600901026 /* BookbookscrapingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookbookscrapingTests.swift; sourceTree = "<group>"; };
+		5A9661FB20ADA49600901026 /* NetworkLayerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkLayerTests.swift; sourceTree = "<group>"; };
 		5A9661FD20ADA49600901026 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		5A96620720ADAF5F00901026 /* ServerAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAPI.swift; sourceTree = "<group>"; };
-		5A96620920ADE79100901026 /* ReviewProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewProvider.swift; sourceTree = "<group>"; };
+		5A96620720ADAF5F00901026 /* RestAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestAPI.swift; sourceTree = "<group>"; };
+		5A96620920ADE79100901026 /* Bookstore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bookstore.swift; sourceTree = "<group>"; };
 		5A96620B20AE049800901026 /* NetworkAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkAdapter.swift; sourceTree = "<group>"; };
+		5A9D302D20BD84340099F39C /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
+		5A9D303620BD8D9E0099F39C /* ModelDataBidingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelDataBidingTests.swift; sourceTree = "<group>"; };
+		5ACF8E5F20BC15570009BC80 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		5ACF8E6120BD65A80009BC80 /* Extensions+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extensions+UIColor.swift"; sourceTree = "<group>"; };
 		77B15FAFCA6621E1A6DAADDA /* Pods_bookbookscraping.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookbookscraping.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		969FEEF842BA852879970258 /* Pods_bookbookscrapingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_bookbookscrapingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9BD0134550AB3438CFD5E13D /* Pods-bookbookscraping.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bookbookscraping.debug.xcconfig"; path = "Pods/Target Support Files/Pods-bookbookscraping/Pods-bookbookscraping.debug.xcconfig"; sourceTree = "<group>"; };
@@ -92,6 +102,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		5A8A1C2220AE166C008050D7 /* NetworkLayer */ = {
+			isa = PBXGroup;
+			children = (
+				5A96620720ADAF5F00901026 /* RestAPI.swift */,
+				5A96620B20AE049800901026 /* NetworkAdapter.swift */,
+				5A96620920ADE79100901026 /* Bookstore.swift */,
+			);
+			path = NetworkLayer;
+			sourceTree = "<group>";
+		};
 		5A9661DA20ADA49400901026 = {
 			isa = PBXGroup;
 			children = (
@@ -115,15 +135,17 @@
 		5A9661E520ADA49400901026 /* bookbookscraping */ = {
 			isa = PBXGroup;
 			children = (
+				5A9D302F20BD844F0099F39C /* ModelLayer */,
+				5A8A1C2220AE166C008050D7 /* NetworkLayer */,
+				5A9D302C20BD67E50099F39C /* CocoaExtensions */,
 				5A9661E620ADA49400901026 /* AppDelegate.swift */,
 				5A9661E820ADA49400901026 /* ViewController.swift */,
-				5A96620720ADAF5F00901026 /* ServerAPI.swift */,
-				5A96620B20AE049800901026 /* NetworkAdapter.swift */,
-				5A96620920ADE79100901026 /* ReviewProvider.swift */,
 				5A9661EA20ADA49400901026 /* Main.storyboard */,
 				5A9661ED20ADA49500901026 /* Assets.xcassets */,
 				5A9661EF20ADA49500901026 /* LaunchScreen.storyboard */,
 				5A9661F220ADA49500901026 /* Info.plist */,
+				5ACF8E5F20BC15570009BC80 /* Constants.swift */,
+				5A210B4D20BD9B4E00EE4F08 /* NaverBookAPISample.json */,
 			);
 			path = bookbookscraping;
 			sourceTree = "<group>";
@@ -131,10 +153,27 @@
 		5A9661FA20ADA49600901026 /* bookbookscrapingTests */ = {
 			isa = PBXGroup;
 			children = (
-				5A9661FB20ADA49600901026 /* BookbookscrapingTests.swift */,
+				5A9661FB20ADA49600901026 /* NetworkLayerTests.swift */,
+				5A9D303620BD8D9E0099F39C /* ModelDataBidingTests.swift */,
 				5A9661FD20ADA49600901026 /* Info.plist */,
 			);
 			path = bookbookscrapingTests;
+			sourceTree = "<group>";
+		};
+		5A9D302C20BD67E50099F39C /* CocoaExtensions */ = {
+			isa = PBXGroup;
+			children = (
+				5ACF8E6120BD65A80009BC80 /* Extensions+UIColor.swift */,
+			);
+			path = CocoaExtensions;
+			sourceTree = "<group>";
+		};
+		5A9D302F20BD844F0099F39C /* ModelLayer */ = {
+			isa = PBXGroup;
+			children = (
+				5A9D302D20BD84340099F39C /* Models.swift */,
+			);
+			path = ModelLayer;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -224,6 +263,7 @@
 			files = (
 				5A9661F120ADA49500901026 /* LaunchScreen.storyboard in Resources */,
 				5A9661EE20ADA49500901026 /* Assets.xcassets in Resources */,
+				5A210B4E20BD9B4E00EE4F08 /* NaverBookAPISample.json in Resources */,
 				5A9661EC20ADA49400901026 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -316,11 +356,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A96620A20ADE79100901026 /* ReviewProvider.swift in Sources */,
+				5A9D302E20BD84340099F39C /* Models.swift in Sources */,
+				5A96620A20ADE79100901026 /* Bookstore.swift in Sources */,
+				5ACF8E6220BD65A80009BC80 /* Extensions+UIColor.swift in Sources */,
 				5A9661E920ADA49400901026 /* ViewController.swift in Sources */,
-				5A96620820ADAF5F00901026 /* ServerAPI.swift in Sources */,
+				5A96620820ADAF5F00901026 /* RestAPI.swift in Sources */,
 				5A9661E720ADA49400901026 /* AppDelegate.swift in Sources */,
 				5A96620C20AE049800901026 /* NetworkAdapter.swift in Sources */,
+				5ACF8E6020BC15570009BC80 /* Constants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,7 +371,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A9661FC20ADA49600901026 /* BookbookscrapingTests.swift in Sources */,
+				5A9D303720BD8D9E0099F39C /* ModelDataBidingTests.swift in Sources */,
+				5A9661FC20ADA49600901026 /* NetworkLayerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -481,6 +525,7 @@
 			baseConfigurationReference = 9BD0134550AB3438CFD5E13D /* Pods-bookbookscraping.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8Y7YWW7H68;
 				INFOPLIST_FILE = bookbookscraping/Info.plist;
@@ -491,6 +536,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.minomi.bookbookscraping;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -501,6 +547,7 @@
 			baseConfigurationReference = DA98177DC593DA06651C9CC4 /* Pods-bookbookscraping.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8Y7YWW7H68;
 				INFOPLIST_FILE = bookbookscraping/Info.plist;
@@ -511,6 +558,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.minomi.bookbookscraping;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

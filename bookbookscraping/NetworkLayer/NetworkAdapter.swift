@@ -15,7 +15,6 @@ struct ServerError : Error {
 
 struct NetworkAdaptor {
     static let provider = MoyaProvider<RestAPI>()
-    
     static func request(target : RestAPI,
                         successHandler : @escaping (Response) -> Void,
                         errorHandler : @escaping (ServerError) -> Void,
@@ -25,8 +24,7 @@ struct NetworkAdaptor {
             case .success(let response):
                 if (200...300).contains(response.statusCode) {
                     successHandler(response)
-                }
-                else {
+                } else {
                     errorHandler(ServerError(statusCode: response.statusCode))
                 }
             case .failure(let error):
