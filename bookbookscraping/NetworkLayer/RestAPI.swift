@@ -12,17 +12,21 @@ import Moya
 typealias ISBN = String
 
 enum RestAPI {
+    enum BookSortOption : String {
+        case sim
+        case date
+    }
     case reviews(bookstore : Bookstore, isbn : ISBN)
-    case books(query : String)
+    case books(query : String, start : Int, display : Int, sortOption : BookSortOption)
 }
 
 extension RestAPI: TargetType {
     var baseURL: URL {
         switch self {
         case .reviews:
-            return URL(string: ReviewAPI.baseURLString.rawValue)!
+            return NetworkConstants.Review.baseURL
         case .books:
-            return URL(string: NaverBookAPI.baseURLString.rawValue)!
+            return NetworkConstants.NaverBook.baseURL
         }
     }
     var path: String {
@@ -37,15 +41,31 @@ extension RestAPI: TargetType {
         return .get
     }
     var sampleData: Data {
-        return Data()
+        switch self {
+        case .reviews:
+            return "sample Data".data(using: .utf8)!
+        case .books:
+            guard let url = Bundle.main.url(forResource: "NaverBookAPISample",
+                                            withExtension: "json"),
+                let data = try? Data(contentsOf: url) else {
+                    return Data()
+            }
+            return data
+        }
     }
     var task: Task {
         switch self {
         case .reviews(let bookstore, _):
             return .requestParameters(parameters: ["bookstore": bookstore.name],
                                       encoding: URLEncoding.default)
-        case .books(let query):
-            return .requestParameters(parameters: ["query": query],
+        case .books(let query, let start, let display, let sortOption):
+            let parameters : [String : Any] = [
+                        "query" : query,
+                        "start" : start,
+                        "display" : display,
+                        "sort" : sortOption
+            ]
+            return .requestParameters(parameters: parameters,
                                       encoding: URLEncoding.default)
         }
     }
@@ -53,8 +73,8 @@ extension RestAPI: TargetType {
         switch self {
         case .books:
             return [
-                "X-Naver-Client-Id" : NaverBookAPI.clientID.rawValue,
-                "X-Naver-Client-Secret" : NaverBookAPI.secret.rawValue
+                "X-Naver-Client-Id" : NetworkConstants.NaverBook.clientID,
+                "X-Naver-Client-Secret" : NetworkConstants.NaverBook.secret
             ]
         default:
             return nil
