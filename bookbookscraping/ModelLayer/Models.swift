@@ -11,7 +11,7 @@ import Foundation
 struct Book : Codable, Equatable {
     let title : String
     let isbnString : String
-    let thumbImageURL : URL
+    let thumbImageURL : URL?
     let author : String
     let price : String?
     let discount : String?
@@ -29,6 +29,25 @@ struct Book : Codable, Equatable {
             return nil
         }
         return Int(isbn13String)
+    }
+    init(title : String,
+         isbnString: String = "",
+         thumbImageURL: URL? = nil,
+         author: String = "",
+         price: String = "",
+         discount: String = "",
+         publisher: String = "",
+         pubdate: String = "",
+         description: String = "") {
+        self.title = title
+        self.isbnString = isbnString
+        self.thumbImageURL = thumbImageURL
+        self.author = author
+        self.price = price
+        self.discount = discount
+        self.publisher = publisher
+        self.pubdate = pubdate
+        self.description = description
     }
 }
 

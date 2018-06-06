@@ -27,9 +27,9 @@ class ModelDataBidingTests: XCTestCase {
                 do {
                     let bookAPIResponse = try response.map(BookAPIResponse.self)
                     XCTAssertEqual(20, bookAPIResponse.books.count)
-                    XCTAssertEqual(bookAPIResponse.books[4].isbn13, 9791161750538)
-                    XCTAssertEqual(bookAPIResponse.books[10].isbn13, 9791158390334)
-                    XCTAssertEqual(bookAPIResponse.books[15].isbn13, 9788960779877)
+                    XCTAssertEqual(9791161750538, bookAPIResponse.books[4].isbn13)
+                    XCTAssertEqual(9791158390334, bookAPIResponse.books[10].isbn13)
+                    XCTAssertEqual(9788960779877, bookAPIResponse.books[15].isbn13)
                 } catch let error {
                     XCTFail(error.localizedDescription)
                 }
@@ -37,5 +37,15 @@ class ModelDataBidingTests: XCTestCase {
                 XCTFail(error.localizedDescription)
             }
         }
+    }
+    func test_BookManager의_SampleTredingBooks에_책들이_정상적으로_바인딩_되어야함() {
+        guard let sampleTrendingBooks = BookManager.shared.sampleTrendingBooks else {
+            XCTFail("SampleTrendingBooks.json을 [Book] 으로 매핑하는데 실패함")
+            return
+        }
+        XCTAssertEqual(10, sampleTrendingBooks.count)
+        XCTAssertEqual(9791195581191, sampleTrendingBooks[0].isbn13)
+        XCTAssertEqual(9788968488184, sampleTrendingBooks[5].isbn13)
+        XCTAssertEqual(9791185890906, sampleTrendingBooks[9].isbn13)
     }
 }
