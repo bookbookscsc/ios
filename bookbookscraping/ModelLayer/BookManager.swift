@@ -69,10 +69,6 @@ class BookManager {
             }
         }
     }
-    func save() {
-        
-    }
-    func load() {
-        
-    }
+    func save() {}
+    func load() {}
 }

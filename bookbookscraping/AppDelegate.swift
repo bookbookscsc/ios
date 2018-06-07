@@ -12,11 +12,17 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    var bookManager : BookManager = BookManager.shared
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        bookManager.load()
         return true
     }
-
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        bookManager.save()
+    }
+    func applicationWillEnterForeground(_ application: UIApplication) {
+        bookManager.load()
+    }
 }
