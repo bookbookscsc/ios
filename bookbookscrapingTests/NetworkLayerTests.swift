@@ -12,10 +12,10 @@ import XCTest
 
 class NetworkLayerTests: XCTestCase {
     // MARK: - Network Test (Expect Status Code : 200)
-    func test_리뷰리스트API_상태코드_200이_와야함() {
-        self.expectStatusCode200(api: .reviews(bookstore: .naverbook,
-                                               isbn: "13394898"))
-    }
+//    func test_리뷰리스트API_상태코드_200이_와야함() {
+//        self.expectStatusCode200(api: .reviews(bookstore: .naverbook,
+//                                               isbn: "13394898"))
+//    }
     func test_네이버책검색API_상태코드_200이_와야함() {
         self.expectStatusCode200(api: .books(query: "머신러닝",
                                              start : 1,

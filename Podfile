@@ -7,7 +7,8 @@ target 'bookbookscraping' do
     # Pods for bookbookscraping
     pod 'Moya'
     pod 'SwiftLint'
-    target 'bookbookscrapingTests' do
+    pod 'Kingfisher'    
+target 'bookbookscrapingTests' do
         inherit! :search_paths
         # Pods for testing
     end
