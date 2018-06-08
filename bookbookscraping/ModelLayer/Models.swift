@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Book : Codable, Equatable {
+struct Book : Codable, Hashable {
     let title : String
     let isbnString : String
     let thumbImageURL : URL?
@@ -48,6 +48,9 @@ struct Book : Codable, Equatable {
         self.publisher = publisher
         self.pubdate = pubdate
         self.description = description
+    }
+    var hashValue: Int {
+        return isbn13 ?? 0
     }
 }
 
