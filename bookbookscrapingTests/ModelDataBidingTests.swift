@@ -17,10 +17,10 @@ class ModelDataBidingTests: XCTestCase {
     }
     // MARK: - Data Binding Test
     func test_네이버책검색API_전송받은_json_이_Book_Model에_적절하게_바인딩_되어야함() {
-        let testAPI = RestAPI.books(query: "머신러닝",
-                                    start: 10,
-                                    display: 20,
-                                    sortOption: .sim)
+        let testAPI = RestAPI.naverbookSearch(query: "머신러닝",
+                                              start: 10,
+                                              display: 20,
+                                              sortOption: .sim)
         provider.request(testAPI) { (result) in
             switch result {
             case .success(let response):

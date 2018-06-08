@@ -12,12 +12,33 @@ import Moya
 typealias ISBN = String
 
 enum RestAPI {
-    enum BookSortOption : String {
+    enum NaverbookSortOption : String {
         case sim
         case date
     }
+    enum AladinAPIType {
+        case bestSeller
+        case newRelease
+        var parameters : [String : String] {
+            var parameters = [
+                "ttbkey" : NetworkConstants.Aladin.secret,
+                "Version" : "20131101",
+                "Output" : "JS",
+                "SearchTarget" : "Book"
+                ]
+            switch self {
+            case .bestSeller:
+                parameters["QueryType"] = "Bestseller"
+                return parameters
+            case .newRelease:
+                parameters["QueryType"] = "ItemNewAll"
+                return parameters
+            }
+        }
+    }
     case reviews(bookstore : Bookstore, isbn : ISBN)
-    case books(query : String, start : Int, display : Int, sortOption : BookSortOption)
+    case naverbookSearch(query: String, start: Int, display: Int, sortOption: NaverbookSortOption)
+    case aladin(type : AladinAPIType, start: Int, display: Int)
 }
 
 extension RestAPI: TargetType {
@@ -25,16 +46,20 @@ extension RestAPI: TargetType {
         switch self {
         case .reviews:
             return NetworkConstants.Review.baseURL
-        case .books:
+        case .naverbookSearch:
             return NetworkConstants.NaverBook.baseURL
+        case .aladin:
+            return NetworkConstants.Aladin.baseURL
         }
     }
     var path: String {
         switch self {
         case .reviews(_, let isbn):
             return "/reviews/\(isbn)"
-        case .books:
+        case .naverbookSearch:
             return "/v1/search/book.json"
+        case .aladin:
+            return "/ItemList.aspx"
         }
     }
     var method: Moya.Method {
@@ -44,13 +69,15 @@ extension RestAPI: TargetType {
         switch self {
         case .reviews:
             return "sample Data".data(using: .utf8)!
-        case .books:
-            guard let url = Bundle.main.url(forResource: "NaverBookAPISample",
-                                            withExtension: "json"),
-                let data = try? Data(contentsOf: url) else {
-                    return Data()
+        case .naverbookSearch:
+            return Data.fromMainBundle(name: "NaverBookAPISample", ext: "json")
+        case .aladin(let apiType, _, _):
+            switch apiType {
+            case .bestSeller:
+                return Data.fromMainBundle(name: "BestSellerSample", ext: "json")
+            case .newRelease:
+                return Data.fromMainBundle(name: "NewReleaseSample", ext: "json")
             }
-            return data
         }
     }
     var task: Task {
@@ -58,7 +85,7 @@ extension RestAPI: TargetType {
         case .reviews(let bookstore, _):
             return .requestParameters(parameters: ["bookstore": bookstore.name],
                                       encoding: URLEncoding.default)
-        case .books(let query, let start, let display, let sortOption):
+        case .naverbookSearch(let query, let start, let display, let sortOption):
             let parameters : [String : Any] = [
                         "query" : query,
                         "start" : start,
@@ -67,11 +94,17 @@ extension RestAPI: TargetType {
             ]
             return .requestParameters(parameters: parameters,
                                       encoding: URLEncoding.default)
+        case .aladin(let apiType, let start, let display):
+            var parameters = apiType.parameters
+            parameters["start"] = "\(start)"
+            parameters["MaxResults"] = "\(display)"
+            return .requestParameters(parameters: parameters,
+                                      encoding: URLEncoding.default)
         }
     }
     var headers: [String: String]? {
         switch self {
-        case .books:
+        case .naverbookSearch:
             return [
                 "X-Naver-Client-Id" : NetworkConstants.NaverBook.clientID,
                 "X-Naver-Client-Secret" : NetworkConstants.NaverBook.secret
