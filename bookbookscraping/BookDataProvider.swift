@@ -8,11 +8,51 @@
 
 import UIKit
 
+// MARK: CollectionView Data Provider
 class BookDataProvider : NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+    let bookManager = BookManager.shared
+    func collectionView(_ collectionView: UICollectionView,
+                        numberOfItemsInSection section: Int) -> Int {
+        return 10
     }
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+    func collectionView(_ collectionView: UICollectionView,
+                        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: BookCollectionViewCell.identifier,
+            for: indexPath
+            ) as? BookCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        guard let bookType = BookType(rawValue: indexPath.section) else {
+            return UICollectionViewCell()
+        }
+        let book = bookManager.book(type: bookType, idx: indexPath.row)
+        cell.imageURL = book?.thumbImageURL
+        return cell
+    }
+}
+
+// MARK: TableView Data Provider
+extension BookDataProvider: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: ContainerTableViewCell.identifier,
+            for: indexPath
+            ) as? ContainerTableViewCell else {
+            return UITableViewCell()
+        }
+        return cell
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 3
+    }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 110
+    }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 20
     }
 }

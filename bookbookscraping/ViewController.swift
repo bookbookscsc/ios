@@ -9,11 +9,11 @@
 import UIKit
 
 class ViewController: UIViewController {
-    @IBOutlet var trendingCollectionView : UICollectionView!
-    @IBOutlet var newReleaseCollectionView : UICollectionView!
-    @IBOutlet var bestSellerCollectionView : UICollectionView!
-    @IBOutlet var bookDataProvider : (UICollectionViewDelegate & UICollectionViewDataSource)!
+    @IBOutlet var containerTableView : UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
     }
 }
