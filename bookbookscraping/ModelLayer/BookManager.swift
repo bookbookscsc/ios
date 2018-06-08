@@ -8,21 +8,22 @@
 
 import Foundation
 
-enum BookType {
+enum BookType : Int {
     case treding
-    case searched
+    case bestseller
+    case newRelease
     case marked
 }
 
 enum BookAction {
-    case searched(Book)
     case marked(Book)
 }
 
 class BookManager {
     static let shared : BookManager = BookManager()
     private var tredingBooks : [Book] = [Book]()
-    private var searchedBooks : [Book] = [Book]()
+    private var bestsellers : [Book] = [Book]()
+    private var newRelease : [Book] = [Book]()
     private var markedBooks : [Book] = [Book]()
     lazy var sampleTrendingBooks : [Book]? = {
         guard let url = Bundle.main.url(forResource: "SampleTrendingBooks",
@@ -35,7 +36,8 @@ class BookManager {
     func count(_ bookType : BookType) -> Int {
         switch bookType {
         case .treding: return tredingBooks.count
-        case .searched: return searchedBooks.count
+        case .bestseller: return bestsellers.count
+        case .newRelease: return newRelease.count
         case .marked: return markedBooks.count
         }
     }
@@ -44,25 +46,20 @@ class BookManager {
     }
     func book(type : BookType, idx : Int) -> Book? {
         switch type {
-        case .treding: return tredingBooks[idx]
-        case .searched: return searchedBooks[idx]
-        case .marked: return markedBooks[idx]
+        case .treding: return tredingBooks[safe: idx]
+        case .bestseller: return bestsellers[safe: idx]
+        case .newRelease: return newRelease[safe: idx]
+        case .marked: return markedBooks[safe: idx]
         }
     }
     func add(_ bookAction : BookAction) {
         switch bookAction {
-        case .searched(let book):
-            searchedBooks.append(book)
         case .marked(let book):
             markedBooks.append(book)
         }
     }
     func remove(_ bookAction : BookAction) {
         switch bookAction {
-        case .searched(let book):
-            if let idx = searchedBooks.index(of: book) {
-                searchedBooks.remove(at: idx)
-            }
         case .marked(let book):
             if let idx = markedBooks.index(of: book) {
                 markedBooks.remove(at: idx)
