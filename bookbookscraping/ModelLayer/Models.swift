@@ -8,59 +8,54 @@
 
 import Foundation
 
-struct Book : Codable, Hashable {
-    let title : String
-    let isbnString : String
-    let thumbImageURL : URL?
-    let author : String
-    let price : String?
-    let discount : String?
-    let publisher : String
-    let pubdate : String
-    let description : String
-    enum CodingKeys: String, CodingKey {
-        case isbnString = "isbn"
-        case thumbImageURL = "image"
-        case title, author, price, discount, publisher, pubdate, description
-    }
-    var isbn13 : Int? {
-        let isbn13String = String(self.isbnString.split(separator: " ").last ?? "")
-        if isbn13String.count != 13 {
-            return nil
-        }
-        return Int(isbn13String)
-    }
-    init(title : String,
-         isbnString: String = "",
-         thumbImageURL: URL? = nil,
-         author: String = "",
-         price: String = "",
-         discount: String = "",
-         publisher: String = "",
-         pubdate: String = "",
-         description: String = "") {
-        self.title = title
-        self.isbnString = isbnString
-        self.thumbImageURL = thumbImageURL
-        self.author = author
-        self.price = price
-        self.discount = discount
-        self.publisher = publisher
-        self.pubdate = pubdate
-        self.description = description
-    }
-    var hashValue: Int {
-        return isbn13 ?? 0
-    }
+struct AladinResponse: Codable {
+    let version : String
+    let logo : URL
+    let pubDate : String
+    let startIndex : Int
+    let item : [Book]
 }
 
-struct BookAPIResponse : Codable {
-    let total : Int
-    let start : Int
-    let display : Int
-    let books : [Book]
+struct Book: Codable, Hashable {
+    let title : String
+    let link : URL?
+    let author : String
+    let pubDate : String
+    let description : String
+    let isbn10 : String
+    let isbn13 : String
+    let itemId : Int
+    let priceSales : Int
+    let coverLink : URL?
+    let bestDuration : String? = nil
+    let bestRank : Int? = nil
+    var hashValue: Int {
+        return Int(isbn13) ?? Int(isbn10) ?? title.hashValue
+    }
     enum CodingKeys: String, CodingKey {
-        case total, start, display
-        case books = "items"
+        case isbn10 = "isbn"
+        case coverLink = "cover"
+        case title, link, author, pubDate, description, isbn13, itemId, priceSales, bestDuration, bestRank
+    }
+    init(title: String,
+         link: URL? = nil,
+         author: String = "",
+         pubDate: String = "",
+         description: String = "",
+         isbn10: String = "",
+         isbn13 : String = "",
+         itemId : Int = 0,
+         priceSales : Int = 0,
+         coverLink: URL? = nil) {
+        self.title = title
+        self.link = link
+        self.author = author
+        self.pubDate = pubDate
+        self.description = description
+        self.isbn10 = isbn10
+        self.isbn13 = isbn13
+        self.itemId = itemId
+        self.priceSales = priceSales
+        self.coverLink = coverLink
     }
 }

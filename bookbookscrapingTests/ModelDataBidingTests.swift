@@ -16,20 +16,16 @@ class ModelDataBidingTests: XCTestCase {
         provider = MoyaProvider<RestAPI>(stubClosure: MoyaProvider.immediatelyStub)
     }
     // MARK: - Data Binding Test
-    func test_네이버책검색API_전송받은_json_이_Book_Model에_적절하게_바인딩_되어야함() {
-        let testAPI = RestAPI.naverbookSearch(query: "머신러닝",
-                                              start: 10,
-                                              display: 20,
-                                              sortOption: .sim)
+    func test_알라딘_Bestseller_API() {
+        let testAPI = RestAPI.aladin(type: .bestSeller,
+                                     start: 1,
+                                     display: 10)
         provider.request(testAPI) { (result) in
             switch result {
             case .success(let response):
                 do {
-                    let bookAPIResponse = try response.map(BookAPIResponse.self)
-                    XCTAssertEqual(20, bookAPIResponse.books.count)
-                    XCTAssertEqual(9791161750538, bookAPIResponse.books[4].isbn13)
-                    XCTAssertEqual(9791158390334, bookAPIResponse.books[10].isbn13)
-                    XCTAssertEqual(9788960779877, bookAPIResponse.books[15].isbn13)
+                    let bookAPIResponse = try response.map(AladinResponse.self)
+                    XCTAssertEqual(10, bookAPIResponse.item.count)
                 } catch let error {
                     XCTFail(error.localizedDescription)
                 }
@@ -44,8 +40,7 @@ class ModelDataBidingTests: XCTestCase {
             return
         }
         XCTAssertEqual(10, sampleTrendingBooks.count)
-        XCTAssertEqual(9791195581191, sampleTrendingBooks[0].isbn13)
-        XCTAssertEqual(9788968488184, sampleTrendingBooks[5].isbn13)
-        XCTAssertEqual(9791185890906, sampleTrendingBooks[9].isbn13)
+        XCTAssertEqual("9788976130501", sampleTrendingBooks[1].isbn13)
+        XCTAssertEqual("9791127845117", sampleTrendingBooks[2].isbn13)
     }
 }

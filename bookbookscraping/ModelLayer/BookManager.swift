@@ -9,9 +9,9 @@
 import Foundation
 
 enum BookType : Int {
-    case treding
     case bestseller
     case newRelease
+    case trending
     case marked
 }
 
@@ -35,18 +35,26 @@ class BookManager {
     }()
     func count(_ bookType : BookType) -> Int {
         switch bookType {
-        case .treding: return tredingBooks.count
+        case .trending: return tredingBooks.count
         case .bestseller: return bestsellers.count
         case .newRelease: return newRelease.count
         case .marked: return markedBooks.count
         }
     }
-    func update(tredingBooks : [Book]) {
-        self.tredingBooks = tredingBooks
+    func update(type : BookType, books : [Book]) {
+        switch type {
+        case .trending:
+            self.tredingBooks = books
+        case .bestseller:
+            self.bestsellers = books
+        case .newRelease:
+            self.newRelease = books
+        default: return
+        }
     }
     func book(type : BookType, idx : Int) -> Book? {
         switch type {
-        case .treding: return tredingBooks[safe: idx]
+        case .trending: return tredingBooks[safe: idx]
         case .bestseller: return bestsellers[safe: idx]
         case .newRelease: return newRelease[safe: idx]
         case .marked: return markedBooks[safe: idx]

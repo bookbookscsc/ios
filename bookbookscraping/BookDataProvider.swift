@@ -23,11 +23,12 @@ class BookDataProvider : NSObject, UICollectionViewDataSource, UICollectionViewD
             ) as? BookCollectionViewCell else {
             return UICollectionViewCell()
         }
-        guard let bookType = BookType(rawValue: indexPath.section) else {
+        print(collectionView.tag)
+        guard let bookType = BookType(rawValue: collectionView.tag) else {
             return UICollectionViewCell()
         }
         let book = bookManager.book(type: bookType, idx: indexPath.row)
-        cell.imageURL = book?.thumbImageURL
+        cell.imageURL = book?.coverLink
         return cell
     }
 }
@@ -44,6 +45,8 @@ extension BookDataProvider: UITableViewDelegate, UITableViewDataSource {
             ) as? ContainerTableViewCell else {
             return UITableViewCell()
         }
+        cell.collectionView.tag = indexPath.section
+        cell.collectionView.reloadData()
         return cell
     }
     func numberOfSections(in tableView: UITableView) -> Int {
