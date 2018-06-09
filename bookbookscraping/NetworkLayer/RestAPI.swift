@@ -17,7 +17,7 @@ enum RestAPI {
         case date
     }
     enum AladinAPIType {
-        case bestSeller
+        case bestseller
         case newRelease
         var parameters : [String : String] {
             var parameters = [
@@ -27,7 +27,7 @@ enum RestAPI {
                 "SearchTarget" : "Book"
                 ]
             switch self {
-            case .bestSeller:
+            case .bestseller:
                 parameters["QueryType"] = "Bestseller"
                 return parameters
             case .newRelease:
@@ -73,7 +73,7 @@ extension RestAPI: TargetType {
             return Data.fromMainBundle(name: "NaverBookAPISample", ext: "json")
         case .aladin(let apiType, _, _):
             switch apiType {
-            case .bestSeller:
+            case .bestseller:
                 return Data.fromMainBundle(name: "BestSellerSample", ext: "json")
             case .newRelease:
                 return Data.fromMainBundle(name: "NewReleaseSample", ext: "json")
