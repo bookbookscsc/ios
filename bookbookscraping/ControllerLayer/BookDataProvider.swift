@@ -23,7 +23,6 @@ class BookDataProvider : NSObject, UICollectionViewDataSource, UICollectionViewD
             ) as? BookCollectionViewCell else {
             return UICollectionViewCell()
         }
-        print(collectionView.tag)
         guard let bookType = BookType(rawValue: collectionView.tag) else {
             return UICollectionViewCell()
         }
@@ -56,6 +55,21 @@ extension BookDataProvider: UITableViewDelegate, UITableViewDataSource {
         return 110
     }
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 20
+        return 30
+    }
+    func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
+        return 40
+    }
+    func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+        (view as? UITableViewHeaderFooterView)?.contentView.backgroundColor = .white
+    }
+    func tableView(_ tableView: UITableView, willDisplayFooterView view: UIView, forSection section: Int) {
+        (view as? UITableViewHeaderFooterView)?.contentView.backgroundColor = .white
+    }
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        guard let bookType = BookType(rawValue: section) else {
+            return nil
+        }
+        return bookType.title
     }
 }
