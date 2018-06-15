@@ -8,27 +8,49 @@
 
 import Foundation
 
+// custom codable with dates
+// https://useyourloaf.com/blog/swift-codable-with-custom-dates/
+
 struct AladinResponse: Codable {
     let version : String
     let logo : URL
-    let pubDate : String
+    let pubDate : Date
     let startIndex : Int
     let item : [Book]
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        version = try container.decode(String.self, forKey: .version)
+        logo = try container.decode(URL.self, forKey: .logo)
+        startIndex = try container.decode(Int.self, forKey: .startIndex)
+        item = try container.decode([Book].self, forKey: .item)
+
+        let dateString = try container.decode(String.self, forKey: .pubDate)
+        let formatter = DateFormatter.forAladin
+        if let date = formatter.date(from: dateString) {
+            pubDate = date
+        } else {
+            throw DecodingError.dataCorruptedError(forKey: .pubDate,
+                                                   in: container,
+                                                   debugDescription:
+                "Date string does not match format expected by formatter.")
+        }
+    }
 }
 
 struct Book: Codable, Hashable {
     let title : String
-    let link : URL?
+    let link : URL? = nil
     let author : String
-    let pubDate : String
+    let pubDate : Date
     let description : String
     let isbn10 : String
     let isbn13 : String
-    let itemId : Int
-    let priceSales : Int
+    let itemId : Int? = nil
+    let priceSales : Int? = nil
     let coverLink : URL?
     let bestDuration : String? = nil
     let bestRank : Int? = nil
+    let reviewCount : Int? = nil
     var hashValue: Int {
         return Int(isbn13) ?? Int(isbn10) ?? title.hashValue
     }
@@ -36,26 +58,5 @@ struct Book: Codable, Hashable {
         case isbn10 = "isbn"
         case coverLink = "cover"
         case title, link, author, pubDate, description, isbn13, itemId, priceSales, bestDuration, bestRank
-    }
-    init(title: String,
-         link: URL? = nil,
-         author: String = "",
-         pubDate: String = "",
-         description: String = "",
-         isbn10: String = "",
-         isbn13 : String = "",
-         itemId : Int = 0,
-         priceSales : Int = 0,
-         coverLink: URL? = nil) {
-        self.title = title
-        self.link = link
-        self.author = author
-        self.pubDate = pubDate
-        self.description = description
-        self.isbn10 = isbn10
-        self.isbn13 = isbn13
-        self.itemId = itemId
-        self.priceSales = priceSales
-        self.coverLink = coverLink
     }
 }
