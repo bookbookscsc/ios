@@ -9,10 +9,22 @@
 import Foundation
 
 enum BookType : Int {
-    case bestseller
-    case newRelease
     case trending
+    case newRelease
+    case bestseller
     case marked
+    var title : String {
+        switch self {
+        case .bestseller:
+            return "Best Seller"
+        case .trending:
+            return "Trending"
+        case .newRelease:
+            return "New Release"
+        case .marked:
+            return "Marked"
+        }
+    }
 }
 
 enum BookAction {
@@ -26,12 +38,18 @@ class BookManager {
     private var newRelease : [Book] = [Book]()
     private var markedBooks : [Book] = [Book]()
     lazy var sampleTrendingBooks : [Book]? = {
-        guard let url = Bundle.main.url(forResource: "SampleTrendingBooks",
-                                        withExtension: "json"),
-              let data = try? Data(contentsOf: url) else {
-            return nil
-        }
-        return try? JSONDecoder().decode([Book].self, from: data)
+        let jsonDecoder = JSONDecoder()
+        jsonDecoder.dateDecodingStrategy = .formatted(DateFormatter.yyyyMMdd)
+        return try? jsonDecoder.decode([Book].self,
+                                       from: Data.fromMainBundle(name: "SampleTrendingBooks",
+                                                                 ext: "json"))
+    }()
+    lazy var sampleBook : Book? = {
+        let jsonDecoder = JSONDecoder()
+        jsonDecoder.dateDecodingStrategy = .formatted(DateFormatter.yyyyMMdd)
+        return try? jsonDecoder.decode(Book.self,
+                                       from: Data.fromMainBundle(name: "SampleBook",
+                                                                 ext: "json"))
     }()
     func count(_ bookType : BookType) -> Int {
         switch bookType {

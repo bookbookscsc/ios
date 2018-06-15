@@ -36,6 +36,7 @@ enum RestAPI {
             }
         }
     }
+    case trendings
     case reviews(bookstore : Bookstore, isbn : ISBN)
     case naverbookSearch(query: String, start: Int, display: Int, sortOption: NaverbookSortOption)
     case aladin(type : AladinAPIType, start: Int, display: Int)
@@ -44,6 +45,8 @@ enum RestAPI {
 extension RestAPI: TargetType {
     var baseURL: URL {
         switch self {
+        case .trendings:
+            return NetworkConstants.Review.baseURL
         case .reviews:
             return NetworkConstants.Review.baseURL
         case .naverbookSearch:
@@ -54,6 +57,8 @@ extension RestAPI: TargetType {
     }
     var path: String {
         switch self {
+        case .trendings:
+            return "/books/trendings"
         case .reviews(_, let isbn):
             return "/reviews/\(isbn)"
         case .naverbookSearch:
@@ -67,6 +72,8 @@ extension RestAPI: TargetType {
     }
     var sampleData: Data {
         switch self {
+        case .trendings:
+            return Data.fromMainBundle(name: "SampleTrendingBooks", ext: "json")
         case .reviews:
             return "sample Data".data(using: .utf8)!
         case .naverbookSearch:
@@ -82,6 +89,8 @@ extension RestAPI: TargetType {
     }
     var task: Task {
         switch self {
+        case .trendings:
+            return .requestPlain
         case .reviews(let bookstore, _):
             return .requestParameters(parameters: ["bookstore": bookstore.name],
                                       encoding: URLEncoding.default)

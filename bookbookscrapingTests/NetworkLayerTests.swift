@@ -11,10 +11,10 @@ import XCTest
 @testable import bookbookscraping
 
 class NetworkLayerTests: XCTestCase {
-    // MARK: - Network Test (Expect Status Code : 200)
+    // MARK: Network Test (Expect Status Code : 200)
 //    func test_리뷰리스트API_상태코드_200이_와야함() {
 //        self.expectStatusCode200(api: .reviews(bookstore: .naverbook,
-//                                               isbn: "13394898"))
+//                                               isbn: "9788937475313"))
 //    }
     func test_네이버책검색API_상태코드_200이_와야함() {
         self.expectStatusCode200(api: .naverbookSearch(query: "머신러닝",
@@ -23,9 +23,12 @@ class NetworkLayerTests: XCTestCase {
                                                        sortOption : .sim))
     }
     func test_알라딘_신간api_상태코드_200이_와야함() {
-        self.expectStatusCode200(api: .aladin(type: .bestSeller,
+        self.expectStatusCode200(api: .aladin(type: .bestseller,
                                               start: 1,
                                               display: 10))
+    }
+    func test_트렌딩_북_api_상태코드_200이_와야함() {
+        self.expectStatusCode200(api: .trendings)
     }
     func expectStatusCode200(api : RestAPI) {
         let expectedStatusCodeIsBetween200And300 = expectation(description: "상태코드 200 ~ 300 와야 함")

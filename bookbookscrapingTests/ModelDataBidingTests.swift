@@ -12,19 +12,24 @@ import XCTest
 
 class ModelDataBidingTests: XCTestCase {
     var provider : MoyaProvider<RestAPI>!
+    var jsonDecoder : JSONDecoder!
     override func setUp() {
         provider = MoyaProvider<RestAPI>(stubClosure: MoyaProvider.immediatelyStub)
+        let jsonDecoder = JSONDecoder()
+        jsonDecoder.dateDecodingStrategy = .formatted(DateFormatter.yyyyMMdd)
+        self.jsonDecoder = jsonDecoder
     }
     // MARK: - Data Binding Test
     func test_알라딘_Bestseller_API() {
-        let testAPI = RestAPI.aladin(type: .bestSeller,
+        let testAPI = RestAPI.aladin(type: .bestseller,
                                      start: 1,
                                      display: 10)
         provider.request(testAPI) { (result) in
             switch result {
             case .success(let response):
                 do {
-                    let bookAPIResponse = try response.map(AladinResponse.self)
+                    let bookAPIResponse = try response.map(AladinResponse.self,
+                                                           using: self.jsonDecoder)
                     XCTAssertEqual(10, bookAPIResponse.item.count)
                 } catch let error {
                     XCTFail(error.localizedDescription)
@@ -40,7 +45,32 @@ class ModelDataBidingTests: XCTestCase {
             return
         }
         XCTAssertEqual(10, sampleTrendingBooks.count)
+        let firstExpectedDate = DateFormatter.yyyyMMdd.date(from: "2018-06-11")
+        let firstCoverLink = URL(string: "http://image.aladin.co.kr/product/14954/99/coversum/8976130502_1.jpg")
         XCTAssertEqual("9788976130501", sampleTrendingBooks[1].isbn13)
+        XCTAssertEqual(firstExpectedDate, sampleTrendingBooks[1].pubDate)
+        XCTAssertEqual(firstCoverLink, sampleTrendingBooks[1].coverLink)
+        let secondExpectedDate = DateFormatter.yyyyMMdd.date(from: "2018-06-20")
+        let secondCoverLink = URL(string: "http://image.aladin.co.kr/product/14954/95/coversum/k662533962_1.jpg")
         XCTAssertEqual("9791127845117", sampleTrendingBooks[2].isbn13)
+        XCTAssertEqual(secondExpectedDate, sampleTrendingBooks[2].pubDate)
+        XCTAssertEqual(secondCoverLink, sampleTrendingBooks[2].coverLink)
+    }
+    func test_TrendingBook_API() {
+        let testAPI = RestAPI.trendings
+        provider.request(testAPI) { (result) in
+            switch result {
+            case .success(let response):
+                do {
+                    let treandingBooks = try response.map([Book].self,
+                                                          using: self.jsonDecoder)
+                    XCTAssertEqual(10, treandingBooks.count)
+                } catch let error {
+                    XCTFail(error.localizedDescription)
+                }
+            case .failure(let error):
+                XCTFail(error.localizedDescription)
+            }
+        }
     }
 }
