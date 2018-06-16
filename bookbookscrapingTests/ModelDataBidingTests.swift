@@ -8,6 +8,7 @@
 
 import XCTest
 @testable import Moya
+@testable import Result
 @testable import bookbookscraping
 
 class ModelDataBidingTests: XCTestCase {
@@ -18,26 +19,6 @@ class ModelDataBidingTests: XCTestCase {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.dateDecodingStrategy = .formatted(DateFormatter.yyyyMMdd)
         self.jsonDecoder = jsonDecoder
-    }
-    // MARK: - Data Binding Test
-    func test_알라딘_Bestseller_API() {
-        let testAPI = RestAPI.aladin(type: .bestseller,
-                                     start: 1,
-                                     display: 10)
-        provider.request(testAPI) { (result) in
-            switch result {
-            case .success(let response):
-                do {
-                    let bookAPIResponse = try response.map(AladinResponse.self,
-                                                           using: self.jsonDecoder)
-                    XCTAssertEqual(10, bookAPIResponse.item.count)
-                } catch let error {
-                    XCTFail(error.localizedDescription)
-                }
-            case .failure(let error):
-                XCTFail(error.localizedDescription)
-            }
-        }
     }
     func test_BookManager의_SampleTredingBooks에_책들이_정상적으로_바인딩_되어야함() {
         guard let sampleTrendingBooks = BookManager.shared.sampleTrendingBooks else {
@@ -56,21 +37,41 @@ class ModelDataBidingTests: XCTestCase {
         XCTAssertEqual(secondExpectedDate, sampleTrendingBooks[2].pubDate)
         XCTAssertEqual(secondCoverLink, sampleTrendingBooks[2].coverLink)
     }
-    func test_TrendingBook_API() {
+    // MARK: - Data Binding Test
+    func test_트렌딩북_들이_적절하게_Book에_바인딩_되었는가() {
         let testAPI = RestAPI.trendings
         provider.request(testAPI) { (result) in
-            switch result {
-            case .success(let response):
-                do {
-                    let treandingBooks = try response.map([Book].self,
-                                                          using: self.jsonDecoder)
-                    XCTAssertEqual(10, treandingBooks.count)
-                } catch let error {
-                    XCTFail(error.localizedDescription)
-                }
-            case .failure(let error):
+            self.bindingTest(result: result, expectedCount: 10)
+        }
+    }
+    func test_베스트셀러들이_적절하게_Book에_바인딩_되었는가() {
+        let testAPI = RestAPI.aladin(type: .bestseller,
+                                     start: 1,
+                                     display: 10)
+        provider.request(testAPI) { (result) in
+            self.bindingTest(result: result, expectedCount: 10)
+        }
+    }
+    func test_신간도서들이_적절하게_Book에_바인딩_되었는가() {
+        let testAPI = RestAPI.aladin(type: .newRelease,
+                                     start: 0,
+                                     display: 10)
+        provider.request(testAPI) { (result) in
+            self.bindingTest(result: result, expectedCount: 10)
+        }
+    }
+    func bindingTest(result: Result<Moya.Response, MoyaError>, expectedCount : Int) {
+        switch result {
+        case .success(let response):
+            do {
+                let bookAPIResponse = try response.map(BookListResponse.self,
+                                                       using: self.jsonDecoder)
+                XCTAssertEqual(expectedCount, bookAPIResponse.item.count)
+            } catch let error {
                 XCTFail(error.localizedDescription)
             }
+        case .failure(let error):
+            XCTFail(error.localizedDescription)
         }
     }
 }
