@@ -37,12 +37,12 @@ class HomeViewController: UIViewController {
         updateBooksGroup.enter()
         NetworkAdaptor.request(target: .trendings,
                                successHandler: { (response) in
-                                guard let books = try? response.map([Book].self,
+                                guard let response = try? response.map(BookListResponse.self,
                                                                     using: self.resonseDecoder) else {
                                     return
                                 }
                                 BookManager.shared.update(type: .trending,
-                                                          books: books)
+                                                          books: response.item)
                                 self.updateBooksGroup.leave()
                                 DispatchQueue.main.async {
                                     self.containerTableView.reloadSections(IndexSet(integer: 0),
@@ -65,26 +65,27 @@ class HomeViewController: UIViewController {
             updateBooksGroup.enter()
             NetworkAdaptor.request(target: .aladin(type: apitype,
                                                    start: 1,
-                                                   display: 10), successHandler: { (response) in
-                                                    guard let bookAPIResponse = try? response.map(AladinResponse.self,
-                                                                                                  using: self.resonseDecoder)
-                                                        else {
-                                                        return
-                                                    }
-                                                    self.updateBooksGroup.leave()
-                                                    BookManager.shared.update(type: bookType,
-                                                                              books: bookAPIResponse.item)
-                                                    DispatchQueue.main.async {
-                                                        switch bookType {
-                                                        case .newRelease:
-                                                            self.containerTableView.reloadSections(IndexSet(integer: 1),
-                                                                                                   with: .automatic)
-                                                        case .bestseller:
-                                                            self.containerTableView.reloadSections(IndexSet(integer: 2),
-                                                                                                   with: .automatic)
-                                                        default: return
-                                                        }
-                                                    }
+                                                   display: 10),
+                                   successHandler: { (response) in
+                                    guard let bookAPIResponse = try? response.map(BookListResponse.self,
+                                                                                  using: self.resonseDecoder)
+                                        else {
+                                            return
+                                    }
+                                    self.updateBooksGroup.leave()
+                                    BookManager.shared.update(type: bookType,
+                                                              books: bookAPIResponse.item)
+                                    DispatchQueue.main.async {
+                                        switch bookType {
+                                        case .newRelease:
+                                            self.containerTableView.reloadSections(IndexSet(integer: 1),
+                                                                                   with: .automatic)
+                                        case .bestseller:
+                                            self.containerTableView.reloadSections(IndexSet(integer: 2),
+                                                                                   with: .automatic)
+                                        default: return
+                                        }
+                                    }
             }, errorHandler: { (_) in
                 self.occurNetworkError = true
                 self.updateBooksGroup.leave()

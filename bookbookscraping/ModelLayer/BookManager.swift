@@ -40,9 +40,9 @@ class BookManager {
     lazy var sampleTrendingBooks : [Book]? = {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.dateDecodingStrategy = .formatted(DateFormatter.yyyyMMdd)
-        return try? jsonDecoder.decode([Book].self,
+        return try? jsonDecoder.decode(BookListResponse.self,
                                        from: Data.fromMainBundle(name: "SampleTrendingBooks",
-                                                                 ext: "json"))
+                                                                 ext: "json")).item
     }()
     lazy var sampleBook : Book? = {
         let jsonDecoder = JSONDecoder()

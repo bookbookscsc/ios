@@ -11,28 +11,30 @@ import Foundation
 // custom codable with dates
 // https://useyourloaf.com/blog/swift-codable-with-custom-dates/
 
-struct AladinResponse: Codable {
-    let version : String
-    let logo : URL
-    let pubDate : Date
-    let startIndex : Int
+struct BookListResponse: Codable {
+    let version : String?
+    let logo : URL?
+    let pubDate : Date?
+    let startIndex : Int?
     let item : [Book]
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        version = try container.decode(String.self, forKey: .version)
-        logo = try container.decode(URL.self, forKey: .logo)
-        startIndex = try container.decode(Int.self, forKey: .startIndex)
+        version = try container.decodeIfPresent(String.self, forKey: .version)
+        logo = try container.decodeIfPresent(URL.self, forKey: .logo)
+        startIndex = try container.decodeIfPresent(Int.self, forKey: .startIndex)
         item = try container.decode([Book].self, forKey: .item)
-
-        let dateString = try container.decode(String.self, forKey: .pubDate)
-        let formatter = DateFormatter.forAladin
-        if let date = formatter.date(from: dateString) {
-            pubDate = date
+        if let dateString = try container.decodeIfPresent(String.self, forKey: .pubDate) {
+            let formatter = DateFormatter.forAladin
+            if let date = formatter.date(from: dateString) {
+                pubDate = date
+            } else {
+                throw DecodingError.dataCorruptedError(forKey: .pubDate,
+                                                       in: container,
+                                                       debugDescription:
+                    "Date string does not match format expected by formatter.")
+            }
         } else {
-            throw DecodingError.dataCorruptedError(forKey: .pubDate,
-                                                   in: container,
-                                                   debugDescription:
-                "Date string does not match format expected by formatter.")
+            pubDate = nil
         }
     }
 }
