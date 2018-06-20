@@ -34,3 +34,13 @@ class ReviewDataProvider: NSObject, UICollectionViewDelegate, UICollectionViewDa
         return reviewDataStore?.count(.reviewMeta, of: book.isbn13) ?? 0
     }
 }
+
+extension ReviewDataProvider: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView,
+                   cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 0
+    }
+}
