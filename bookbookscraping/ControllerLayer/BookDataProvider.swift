@@ -10,10 +10,14 @@ import UIKit
 
 // MARK: CollectionView Data Provider
 class BookDataProvider : NSObject, UICollectionViewDataSource, UICollectionViewDelegate {
-    let bookManager = BookManager.shared
+    let bookDataStore = BookDataStore.shared
+    weak var viewController : UIViewController?
     func collectionView(_ collectionView: UICollectionView,
                         numberOfItemsInSection section: Int) -> Int {
-        return 10
+        guard let bookType = BookType(rawValue: collectionView.tag) else {
+            return 0
+        }
+        return bookDataStore.count(bookType)
     }
     func collectionView(_ collectionView: UICollectionView,
                         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -26,9 +30,25 @@ class BookDataProvider : NSObject, UICollectionViewDataSource, UICollectionViewD
         guard let bookType = BookType(rawValue: collectionView.tag) else {
             return UICollectionViewCell()
         }
-        let book = bookManager.book(type: bookType, idx: indexPath.row)
+        let book = bookDataStore.book(type: bookType, idx: indexPath.row)
         cell.imageURL = book?.coverLink
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView,
+                        didSelectItemAt indexPath: IndexPath) {
+        guard let bookType = BookType(rawValue: collectionView.tag) else {
+            return
+        }
+        let storyBoard = UIStoryboard(name: "Main", bundle: nil)
+        guard let bookDetailVC = storyBoard.instantiateViewController(
+            withIdentifier: "BookDetailViewController"
+            ) as? BookDetailViewController else {
+            return
+        }
+        let idx = indexPath.item
+        bookDetailVC.bookInfo = (bookType, idx)
+        viewController?.navigationController?.pushViewController(bookDetailVC,
+                                                                 animated: true)
     }
 }
 

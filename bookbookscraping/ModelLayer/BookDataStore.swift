@@ -31,12 +31,14 @@ enum BookAction {
     case marked(Book)
 }
 
-class BookManager {
-    static let shared : BookManager = BookManager()
+class BookDataStore {
+    static let shared : BookDataStore = BookDataStore()
     private var tredingBooks : [Book] = [Book]()
     private var bestsellers : [Book] = [Book]()
     private var newRelease : [Book] = [Book]()
     private var markedBooks : [Book] = [Book]()
+    private let updateQueue = DispatchQueue(label: "bookManager.updateQueue",
+                                            attributes: .concurrent)
     lazy var sampleTrendingBooks : [Book]? = {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.dateDecodingStrategy = .formatted(DateFormatter.yyyyMMdd)
@@ -60,14 +62,16 @@ class BookManager {
         }
     }
     func update(type : BookType, books : [Book]) {
-        switch type {
-        case .trending:
-            self.tredingBooks = books
-        case .bestseller:
-            self.bestsellers = books
-        case .newRelease:
-            self.newRelease = books
-        default: return
+        updateQueue.async(flags: .barrier) {
+            switch type {
+            case .trending:
+                self.tredingBooks = books
+            case .bestseller:
+                self.bestsellers = books
+            case .newRelease:
+                self.newRelease = books
+            default: return
+            }
         }
     }
     func book(type : BookType, idx : Int) -> Book? {

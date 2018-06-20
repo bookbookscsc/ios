@@ -9,72 +9,74 @@
 import UIKit
 
 class HomeViewController: UIViewController {
-    @IBOutlet var containerTableView : UITableView!
+    @IBOutlet weak var containerTableView : UITableView!
+    @IBOutlet var bookDataProvider : BookDataProvider!
     private var occurNetworkError = false
-    private var updateBooksGroup : DispatchGroup = DispatchGroup()
-    private let resonseDecoder : JSONDecoder = {
+    private var requestBooksGroup : DispatchGroup = DispatchGroup()
+    private let responseDecoder : JSONDecoder = {
         let jsonDecoder = JSONDecoder()
         jsonDecoder.dateDecodingStrategy = .formatted(DateFormatter.yyyyMMdd)
         return jsonDecoder
     }()
     override func viewDidLoad() {
         super.viewDidLoad()
+        bookDataProvider.viewController = self
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         occurNetworkError = false
-        updateTrendingBooks()
-        updateNewReleaseAndBestSeller()
-        updateBooksGroup.notify(queue: .main) {
+        requestTrendingBooks()
+        requestNewReleaseAndBestSeller()
+        requestBooksGroup.notify(queue: .main) {
             if self.occurNetworkError {
                 self.presentAlert(title: "네트워크 오류", message: "네트워크 상 오류로 인하여 책 정보를 가져오지 못했습니다")
             }
         }
     }
-    // todo: 일정시간동안 Cache 구현
-    /// Trending Book을 서버에서 가져와서 화면에 Update
-    private func updateTrendingBooks() {
-        updateBooksGroup.enter()
+    /// Trending Book을 서버에서 가져와서 화면에 Update,
+    /// Response Cache-Control is max-age=300
+    private func requestTrendingBooks() {
+        requestBooksGroup.enter()
         NetworkAdaptor.request(target: .trendings,
                                successHandler: { (response) in
                                 guard let response = try? response.map(BookListResponse.self,
-                                                                    using: self.resonseDecoder) else {
+                                                                    using: self.responseDecoder) else {
                                     return
                                 }
-                                BookManager.shared.update(type: .trending,
-                                                          books: response.item)
-                                self.updateBooksGroup.leave()
+                                BookDataStore.shared.update(type: .trending,
+                                                            books: response.item)
+                                self.requestBooksGroup.leave()
                                 DispatchQueue.main.async {
                                     self.containerTableView.reloadSections(IndexSet(integer: 0),
                                                                            with: .automatic)
                                 }
         }, errorHandler: { (_) in
             self.occurNetworkError = true
-            self.updateBooksGroup.leave()
+            self.requestBooksGroup.leave()
         }, failureHandler: { (_) in
             self.occurNetworkError = true
-            self.updateBooksGroup.leave()
+            self.requestBooksGroup.leave()
         })
     }
     // todo: 일정시간동안 Cache 구현
     /// 신간, 베스트셀러들를 알라딘 API로 가져와서 화면에 Update
-    private func updateNewReleaseAndBestSeller() {
+    private func requestNewReleaseAndBestSeller() {
         let apiTypes : [(RestAPI.AladinAPIType, BookType)] = [(.newRelease, .newRelease),
                                                               (.bestseller, .bestseller)]
         for (apitype, bookType) in apiTypes {
-            updateBooksGroup.enter()
+            requestBooksGroup.enter()
             NetworkAdaptor.request(target: .aladin(type: apitype,
                                                    start: 1,
-                                                   display: 10),
+                                                   display: 9),
                                    successHandler: { (response) in
                                     guard let bookAPIResponse = try? response.map(BookListResponse.self,
-                                                                                  using: self.resonseDecoder)
+                                                                                  using: self.responseDecoder)
                                         else {
                                             return
                                     }
-                                    self.updateBooksGroup.leave()
-                                    BookManager.shared.update(type: bookType,
+                                    BookDataStore.shared.update(type: bookType,
                                                               books: bookAPIResponse.item)
+                                    self.requestBooksGroup.leave()
                                     DispatchQueue.main.async {
                                         switch bookType {
                                         case .newRelease:
@@ -88,10 +90,10 @@ class HomeViewController: UIViewController {
                                     }
             }, errorHandler: { (_) in
                 self.occurNetworkError = true
-                self.updateBooksGroup.leave()
+                self.requestBooksGroup.leave()
             }, failureHandler: { (_) in
                 self.occurNetworkError = true
-                self.updateBooksGroup.leave()
+                self.requestBooksGroup.leave()
             })
         }
     }

@@ -8,8 +8,8 @@
 
 import XCTest
 
-class BookManagerUITests: XCTestCase {
-    class FakeBookManager : BookManager {
+class BookDataStoreUITests: XCTestCase {
+    class FakebookDataStore : BookDataStore {
         var saveWasCalled = false
         var loadWasCalled = false
         override func save() {
@@ -19,22 +19,22 @@ class BookManagerUITests: XCTestCase {
             loadWasCalled = true
         }
     }
-    var bookManager : FakeBookManager!
+    var bookDataStore : FakeBookDataStore!
     override func setUp() {
         super.setUp()
-        bookManager = FakeBookManager()
+        bookDataStore = FakeBookDataStore()
         let app = XCUIApplication()
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            appDelegate.bookManager = bookManager
+            appDelegate.bookDataStore = bookDataStore
         }
         continueAfterFailure = false
     }
     func test_앱이_포그라운드로_올라올때_load메서드가_호출되어야함() {
         XCUIApplication().activate()
-        XCTAssertTrue(bookManager.loadWasCalled)
+        XCTAssertTrue(bookDataStore.loadWasCalled)
     }
     func test_앱이_백그라운드로_넘어갈때_save메서드가_호출되어야함() {
         XCUIDevice().press(XCUIDevice.Button.home)
-        XCTAssertTrue(bookManager.saveWasCalled)
+        XCTAssertTrue(bookDataStore.saveWasCalled)
     }
 }

@@ -12,16 +12,16 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    var bookManager : BookManager = BookManager.shared
+    var bookDataStore : BookDataStore = BookDataStore.shared
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        bookManager.load()
+        bookDataStore.load()
         return true
     }
     func applicationDidEnterBackground(_ application: UIApplication) {
-        bookManager.save()
+        bookDataStore.save()
     }
     func applicationWillEnterForeground(_ application: UIApplication) {
-        bookManager.load()
+        bookDataStore.load()
     }
 }
