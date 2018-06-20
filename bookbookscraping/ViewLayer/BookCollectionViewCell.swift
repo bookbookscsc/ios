@@ -20,5 +20,6 @@ class BookCollectionViewCell: UICollectionViewCell {
     @IBOutlet var thumbImageView : UIImageView!
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.imageURL = nil
     }
 }

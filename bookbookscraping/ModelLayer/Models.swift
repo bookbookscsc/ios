@@ -10,7 +10,6 @@ import Foundation
 
 // custom codable with dates
 // https://useyourloaf.com/blog/swift-codable-with-custom-dates/
-
 struct BookListResponse: Codable {
     let version : String?
     let logo : URL?
@@ -39,10 +38,18 @@ struct BookListResponse: Codable {
     }
 }
 
+struct ReviewListResponse : Codable {
+    let reviewMeta : [ReviewMeta]
+    let item : [Review]
+    let book : Book
+}
+
+// MARK: Book Model
 struct Book: Codable, Hashable {
     let title : String
     let link : URL? = nil
     let author : String
+    let publisher : String
     let pubDate : Date
     let description : String
     let isbn10 : String
@@ -59,6 +66,59 @@ struct Book: Codable, Hashable {
     enum CodingKeys: String, CodingKey {
         case isbn10 = "isbn"
         case coverLink = "cover"
-        case title, link, author, pubDate, description, isbn13, itemId, priceSales, bestDuration, bestRank
+        case title, link, author, publisher, pubDate, description, isbn13, itemId, priceSales, bestDuration, bestRank
+    }
+}
+
+enum Bookstore : String, Codable {
+    case naverbook
+    case kyobo
+    var name : String {
+        return self.rawValue
+    }
+    var logoURL : URL? {
+        return nil
+    }
+}
+
+/// ReviewDataStore에서 관리하는 Item
+protocol ReviewItem: Codable, Hashable {}
+
+struct ReviewMeta : ReviewItem {
+    let bookstore : Bookstore
+    let rating : Double
+    let count : Int
+    let isbn13 : ISBN13
+}
+
+struct Review : ReviewItem {
+    let title : String?
+    let link : URL?
+    let thumbNailLink: URL?
+    let text : String
+    let bookStore : Bookstore
+    let rating : Double?
+    let likes : Int?
+    init(title : String? = nil,
+         link : URL? = nil,
+         thumbNailLink : URL? = nil,
+         text : String,
+         bookStore : Bookstore,
+         rating : Double? = nil,
+         likes : Int? = nil) {
+        self.title = title
+        self.link = link
+        self.thumbNailLink = thumbNailLink
+        self.text = text
+        self.bookStore = bookStore
+        self.rating = rating
+        self.likes = likes
+    }
+    var hashValue: Int {
+        return text.hashValue ^ bookStore.hashValue ^
+            (likes ?? 0) ^ Int(rating?.hashValue ?? 0)
+    }
+    static func == (lhs: Review, rhs: Review) -> Bool {
+        return lhs.hashValue == rhs.hashValue
     }
 }

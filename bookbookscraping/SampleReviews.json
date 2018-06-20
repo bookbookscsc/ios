@@ -1,0 +1,56 @@
+
+{
+    "reviewMeta": [{
+                    "isbn13" : "9788976130501",
+                    "bookstore" : "naverbook",
+                    "rating" : 8.11,
+                    "count" : 1324
+                  },
+                  {
+                    "isbn13" : "9788976130501",
+                    "bookstore" : "kyobo",
+                    "rating" : 8.5,
+                    "count" : 1020
+                  }],
+    "book": {
+            "title": "타인의 시선 - 국부에서 협상가까지, 대한민국 대통령",
+            "link": "http://www.aladin.co.kr/shop/wproduct.aspx?ItemId=149549953&amp;partner=openAPI&amp;start=api",
+            "author": "타임TIME, 찰리 캠벨 (지은이), 배현 (옮긴이)",
+            "pubDate": "2018-06-11",
+            "description": "세계적으로 가장 영향력 높은 시사지 &lt;타임TIME&gt;의 눈으로 바라본 우리 현대사를 조망한다. 1950년 10월 16일부터 2017년 5월 15일까지, 70년 가까이 한국 현대사와 함께한 &lt;타임&gt; 커버를 장식한 기사를 포함, 총 12개의 기사를 수록했다.",
+            "isbn": "8976130502",
+            "isbn13": "9788976130501",
+            "itemId": 149549953,
+            "priceSales": 16200,
+            "priceStandard": 18000,
+            "mallType": "BOOK",
+            "stockStatus": "",
+            "mileage": 55,
+            "cover": "http://image.aladin.co.kr/product/14954/99/coversum/8976130502_1.jpg",
+            "categoryId": 51220,
+            "categoryName": "국내도서>사회과학>정치학/외교학/행정학>정치인",
+            "publisher": "유피에이(UPA)",
+            "salesPoint": 0,
+            "fixedPrice": true,
+            "customerReviewRank": 10,
+            "subInfo": {}
+    },
+    "item" : [{
+                "title": "조선 왕조의 요약정리 최고봉",
+                "link": "https://blog.naver.com/koucass/221242995010",
+                "thumbNailLink": "http://blogthumb2.naver.net/MjAxODA0MDJfMjg5/MDAxNTIyNjM5ODczMTUy.O1111G_2W2zshx4VwAyXxg1YCEQtXX8pmt9rbaCySr0g.V0W96852HhDWK0YEIXjNX4yIj4sYFnqOuKyGjix0JAkg.JPEG.koucass/255980363g.jpg",
+                "text": "정말 재밌습니다.",
+                "bookStore": "naverbook",
+                "rating": 9.32,
+                "likes": 23
+              },
+              {
+              "title": "조선 왕조의 요약정리 최고봉",
+              "link": "https://blog.naver.com/koucass/221242995010",
+              "thumbNailLink": "http://blogthumb2.naver.net/MjAxODA0MDJfMjg5/MDAxNTIyNjM5ODczMTUy.O1111G_2W2zshx4VwAyXxg1YCEQtXX8pmt9rbaCySr0g.V0W96852HhDWK0YEIXjNX4yIj4sYFnqOuKyGjix0JAkg.JPEG.koucass/255980363g.jpg",
+              "text": "정말 재밌습니다.",
+              "bookStore": "kyobo",
+              "rating": 9.32,
+              "likes": 23
+              }]
+}

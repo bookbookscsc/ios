@@ -24,3 +24,17 @@ class ExtensionArrayTests: XCTestCase {
         XCTAssertNotNil(testArray[safe: 1])
     }
 }
+
+class ExtensionPresentableAlert: XCTestCase {
+    class MockViewContrller : UIViewController {
+        var isPresentAlert : Bool = false
+        override func presentAlert(title: String?, message: String?, preferredStyle: UIAlertControllerStyle) {
+            self.isPresentAlert = true
+        }
+    }
+    func test_ViewController들은_Alert을_띄울수_있다() {
+        let vcUnderTest = MockViewContrller()
+        vcUnderTest.presentAlert(title: "test", message: "test", preferredStyle: .alert)
+        XCTAssertTrue(vcUnderTest.isPresentAlert)
+    }
+}

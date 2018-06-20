@@ -9,7 +9,7 @@
 import Foundation
 import Moya
 
-typealias ISBN = String
+typealias ISBN13 = String
 
 enum RestAPI {
     enum NaverbookSortOption : String {
@@ -37,7 +37,7 @@ enum RestAPI {
         }
     }
     case trendings
-    case reviews(bookstore : Bookstore, isbn : ISBN)
+    case reviews(of : ISBN13)
     case naverbookSearch(query: String, start: Int, display: Int, sortOption: NaverbookSortOption)
     case aladin(type : AladinAPIType, start: Int, display: Int)
 }
@@ -59,8 +59,8 @@ extension RestAPI: TargetType {
         switch self {
         case .trendings:
             return "/books/trendings"
-        case .reviews(_, let isbn):
-            return "/reviews/\(isbn)"
+        case .reviews(let isbn13):
+            return "/reviews/\(isbn13)"
         case .naverbookSearch:
             return "/v1/search/book.json"
         case .aladin:
@@ -75,7 +75,7 @@ extension RestAPI: TargetType {
         case .trendings:
             return Data.fromMainBundle(name: "SampleTrendingBooks", ext: "json")
         case .reviews:
-            return "sample Data".data(using: .utf8)!
+            return Data.fromMainBundle(name: "SampleReviews", ext: "json")
         case .naverbookSearch:
             return Data.fromMainBundle(name: "NaverBookAPISample", ext: "json")
         case .aladin(let apiType, _, _):
@@ -91,8 +91,8 @@ extension RestAPI: TargetType {
         switch self {
         case .trendings:
             return .requestPlain
-        case .reviews(let bookstore, _):
-            return .requestParameters(parameters: ["bookstore": bookstore.name],
+        case .reviews(let isbn13):
+            return .requestParameters(parameters: ["isbn13": isbn13],
                                       encoding: URLEncoding.default)
         case .naverbookSearch(let query, let start, let display, let sortOption):
             let parameters : [String : Any] = [

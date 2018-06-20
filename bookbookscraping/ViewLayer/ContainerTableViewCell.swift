@@ -14,11 +14,10 @@ class ContainerTableViewCell : UITableViewCell {
     @IBOutlet var collectionView : UICollectionView!
     override func awakeFromNib() {
         super.awakeFromNib()
-        print(#function)
         collectionView.collectionViewLayout = {
             let flowLayout = UICollectionViewFlowLayout()
             flowLayout.minimumLineSpacing = 20
-            flowLayout.itemSize = CGSize(width: 100, height: 140)
+            flowLayout.itemSize = CGSize(width: 80, height: 140)
             flowLayout.scrollDirection = .horizontal
             return flowLayout
         }()
